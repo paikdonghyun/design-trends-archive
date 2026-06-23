@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>웹 디자인 트렌드 아카이브</title>
+  <style>
+    :root {
+      --sidebar-w: 210px;
+      --bg: #ffffff;
+      --surface: #f7f7f7;
+      --surface2: #efefef;
+      --border: #e4e4e4;
+      --accent-aw: #b8a600;
+      --accent-css: #e05520;
+      --accent-fwa: #0088bb;
+      --text: #111111;
+      --text-muted: #555555;
+      --text-dim: #aaaaaa;
+      --active-bg: #111;
+      --active-text: #ffffff;
+      --radius: 10px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Helvetica Neue', Arial, 'Malgun Gothic', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ── 레이아웃 ── */
+    .layout {
+      display: flex;
+      height: 100vh;
+    }
+
+    /* ── 사이드바 ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+    }
+
+    .sidebar-header {
+      padding: 20px 18px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-logo {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .sidebar-sub {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 0 20px;
+    }
+
+    .month-label {
+      padding: 10px 18px 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .date-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 18px;
+      cursor: pointer;
+      border-radius: 0;
+      transition: background 0.12s;
+      border-left: 3px solid transparent;
+    }
+
+    .date-item:hover {
+      background: var(--surface2);
+    }
+
+    .date-item.active {
+      background: var(--active-bg);
+      border-left-color: var(--active-bg);
+      color: var(--active-text);
+    }
+
+    .date-item.active .date-label { color: var(--active-text); }
+    .date-item.active .date-day   { color: rgba(255,255,255,0.6); }
+
+    .date-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .date-day {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .new-badge {
+      margin-left: auto;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      background: #111;
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    .date-item.active .new-badge {
+      background: rgba(255,255,255,0.25);
+      color: #fff;
+    }
+
+    .sidebar-footer {
+      padding: 14px 18px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    /* ── 메인 콘텐츠 ── */
+    .main {
+      flex: 1;
+      overflow-y: auto;
+      height: 100vh;
+    }
+
+    .report-page {
+      display: none;
+      padding: 40px 44px;
+      max-width: 1100px;
+    }
+
+    .report-page.visible {
+      display: block;
+    }
+
+    /* ── 리포트 헤더 ── */
+    .report-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 28px;
+      margin-bottom: 44px;
+    }
+
+    .report-meta {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+    }
+
+    .report-title {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .report-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* ── 섹션 ── */
+    .section { margin-bottom: 52px; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .section-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .badge-aw  { background: #f0e000; color: #5a4800; }
+    .badge-css { background: #e05520; color: #fff; }
+    .badge-fwa { background: #0088bb; color: #fff; }
+
+    .section-name {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .section-url {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-left: auto;
+    }
+
+    .section-url a { color: inherit; text-decoration: none; }
+    .section-url a:hover { color: var(--text-muted); }
+
+    /* ── 카드 ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+
+    .card:hover {
+      border-color: #bbb;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .card-top {
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-date {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 5px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 3px;
+      letter-spacing: -0.01em;
+    }
+
+    .card-maker {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .card-body { padding: 14px 18px 18px; }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 2px 7px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .analysis-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+
+    .analysis-text {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 18px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .score-badge { font-size: 12px; font-weight: 700; }
+    .score-aw  { color: var(--accent-aw); }
+    .score-css { color: var(--accent-css); }
+    .score-fwa { color: var(--accent-fwa); }
+
+    .visit-link {
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      background: #222;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: background 0.13s;
+    }
+
+    .visit-link:hover { background: #444; }
+
+    .palette {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .palette-label {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    /* ── 트렌드 요약 ── */
+    .trend-summary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 26px;
+      margin-top: 44px;
+    }
+
+    .trend-summary h2 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .trend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .trend-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+
+    .trend-icon  { font-size: 16px; margin-bottom: 5px; }
+    .trend-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+    .trend-desc  { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── 푸터 ── */
+    .report-footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--text-dim);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* ── 스크롤바 ── */
+    .sidebar-nav::-webkit-scrollbar { width: 4px; }
+    .sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+    .sidebar-nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ======================================================== SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">디자인 트렌드 아카이브</div>
+      <div class="sidebar-sub">Awwwards · CSSDA · FWA</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!-- ★ 날짜 항목은 여기에 자동으로 추가됩니다 ★ -->
+      <!-- MONTH: 2026년 6월 -->
+      <div class="month-label">2026년 6월</div>
+
+      <div class="date-item active" onclick="showReport('2026-06-23')">
+        <div>
+          <div class="date-label">6월 23일</div>
+          <div class="date-day">화요일</div>
+        </div>
+        <span class="new-badge">NEW</span>
+      </div>
+
+      <!-- 새 날짜는 위에 계속 추가 -->
+    </nav>
+
+    <div class="sidebar-footer">
+      총 <strong>1</strong>개 리포트
+    </div>
+  </aside>
+
+  <!-- ======================================================== MAIN -->
+  <main class="main">
+
+    <!-- ★ ============================================================
+         날짜: 2026-06-23
+         ★ 새 리포트는 이 블록을 복사해서 위에 추가합니다 ★
+    ============================================================ -->
+    <div class="report-page visible" id="report-2026-06-23">
+
+      <div class="report-header">
+        <p class="report-meta">Daily Design Intelligence · Web Agency Division</p>
+        <h1 class="report-title">웹 디자인 트렌드 리포트</h1>
+        <p class="report-subtitle">2026년 6월 23일 (화) — Awwwards · CSS Design Awards · FWA 최신 수상작 분석</p>
+      </div>
+
+      <!-- AWWWARDS -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-badge badge-aw">SOTD</span>
+          <span class="section-name">Awwwards — Site of the Day</span>
+          <span class="section-url"><a href="https://www.awwwards.com/websites/sites_of_the_day/" target="_blank">awwwards.com ↗</a></span>
+        </div>
+        <div class="cards">
+
+          <div class="card">
+            <div class="card-top">
+              <p class="card-date">Jun 22, 2026 · Score 7.58 / 10</p>
+              <h3 class="card-title">EverSwap</h3>
+              <p class="card-maker">by Lusion</p>
+              <p class="card-desc">DeFi 통합 프로토콜(트레이딩·대출·무이자 차입). 단일 유동성 풀을 릴레이어로 운영하는 Web3 플랫폼.</p>
+            </div>
+            <div class="card-body">
+              <div class="palette">
+                <span class="swatch" style="background:#fbfff4;"></span>
+                <span class="swatch" style="background:#203727;"></span>
+                <span class="palette-label">#fbfff4 · #203727 — 자연 영감 바이크로마틱</span>
+              </div>
+              <div class="tags">
+                <span class="tag">WebGL</span><span class="tag">3D / Blender</span>
+                <span class="tag">Storytelling</span><span class="tag">Illustration</span>
+              </div>
+              <p class="analysis-label">디자인 분석</p>
+              <p class="analysis-text">자연에서 추출한 짙은 포레스트 그린과 크림화이트 투-컬러 팔레트로 DeFi 특유의 차가운 이미지를 탈피했다. WebGL 기반 풀-이머시브 인트로와 로딩 구간에서 Blender로 제작한 3D 오브젝트가 스크롤에 반응하며 복잡한 금융 메커니즘을 직관적 스토리로 전환한다. <strong>내러티브 중심 웹3 디자인</strong>의 모범 사례.</p>
+            </div>
+            <div class="card-footer">
+              <span class="score-badge score-aw">★ 7.58 · DEV 7.39</span>
+              <a class="visit-link" href="https://everswap.com/" target="_blank">사이트 방문 ↗</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-top">
+              <p class="card-date">Jun 21, 2026 · Score 7.24 / 10</p>
+              <h3 class="card-title">digitalists</h3>
+              <p class="card-maker">by digitalists (Austria)</p>
+              <p class="card-desc">오스트리아의 크리에이티브 디지털 에이전시. 브랜드를 위한 맞춤 디지털 프로덕트 제작.</p>
+            </div>
+            <div class="card-body">
+              <div class="palette">
+                <span class="swatch" style="background:#f1e500;"></span>
+                <span class="swatch" style="background:#000000;"></span>
+                <span class="palette-label">#f1e500 · #000 — 일렉트릭 바이크로마틱</span>
+              </div>
+              <div class="tags">
+                <span class="tag">WebGL / Three.js</span><span class="tag">Real-time Shader</span>
+                <span class="tag">Scroll Animation</span><span class="tag">WordPress</span>
+              </div>
+              <p class="analysis-label">디자인 분석</p>
+              <p class="analysis-text">전기 노랑·블랙 두 색으로 강렬한 브랜드 임팩트를 구현했다. 히어로에 실시간 GLSL 셰이더가 적용돼 스크롤 속도에 따라 왜곡 강도가 달라지며, 케이스 페이지 전환 시 Three.js 씬이 교체된다. <strong>에이전시 포트폴리오의 셰이더-퍼스트 접근</strong>이 돋보임.</p>
+            </div>
+            <div class="card-footer">
+              <span class="score-badge score-aw">★ 7.24 · DEV 7.12</span>
+              <a class="visit-link" href="https://digitalists.at/" target="_blank">사이트 방문 ↗</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-top">
+              <p class="card-date">Jun 20, 2026 · Score 7.20 / 10</p>
+              <h3 class="card-title">RPA COMUNICACIÓN</h3>
+              <p class="card-maker">by LaNegrita</p>
+              <p class="card-desc">스페인 이벤트·커뮤니케이션 에이전시의 새 브랜드 시스템을 디지털로 구현한 웹사이트.</p>
+            </div>
+            <div class="card-body">
+              <div class="palette">
+                <span class="swatch" style="background:#01065B;"></span>
+                <span class="swatch" style="background:#868EFF;"></span>
+                <span class="palette-label">#01065B · #868EFF — 딥네이비·라벤더</span>
+              </div>
+              <div class="tags">
+                <span class="tag">GSAP</span><span class="tag">Typography</span>
+                <span class="tag">Micro-interaction</span><span class="tag">CSS Animation</span>
+              </div>
+              <p class="analysis-label">디자인 분석</p>
+              <p class="analysis-text">딥 네이비와 라벤더 보라의 대비가 고급스럽고 현대적인 분위기를 만든다. GSAP 기반 마이크로인터랙션이 페이지 전반에 배치돼 정밀한 브랜드 움직임 언어를 구축했다. <strong>브랜드 시스템의 디지털 번역</strong>을 GSAP으로 정밀하게 구현한 사례.</p>
+            </div>
+            <div class="card-footer">
+              <span class="score-badge score-aw">★ 7.20 · DEV 6.91</span>
+              <a class="visit-link" href="https://rpacomunicacion.com/" target="_blank">사이트 방문 ↗</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CSS DESIGN AWARDS -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-badge badge-css">WOTD</span>
+          <span class="section-name">CSS Design Awards — Website of the Day</span>
+          <span class="section-url"><a href="https://www.cssdesignawards.com/wotd-award-winners" target="_blank">cssdesignawards.com ↗</a></span>
+        </div>
+        <div class="cards">
+
+          <div class="card">
+            <div class="card-top">
+              <p class="card-date">Jun 22, 2026 · Score 8.17 / 10</p>
+              <h3 class="card-title">IL CAPO PRODUCTION</h3>
+              <p class="card-maker">by AUGE Experience (Italy)</p>
+              <p class="card-desc">과거에서 영감받아 현재로 재해석된 예술적 비전과 산업 영화를 결합한 영상 프로덕션 회사.</p>
+            </div>
+            <div class="card-body">
+              <div class="tags">
+                <span class="tag">Animated</span><span class="tag">Photographic</span>
+                <span class="tag">Video / Sound</span><span class="tag">Photography</span>
+              </div>
+              <p class="analysis-label">디자인 분석</p>
+              <p class="analysis-text">시네마틱 사진·영상이 UI의 전면에 배치돼 방문자를 즉각 영화적 공간으로 끌어들인다. 클래식한 레트로 감성과 현대적 미니멀 레이아웃이 충돌하며 독특한 심미적 긴장감을 형성한다. <strong>포트폴리오형 프로덕션 회사 사이트의 교과서적 시네마틱 디자인</strong>.</p>
+            </div>
+            <div class="card-footer">
+              <span class="score-badge score-css">★ 8.17 (Judge: 8.83)</span>
+              <a class="visit-link" href="https://www.ilcapoproduction.com/" target="_blank">사이트 방문 ↗</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-top">
+              <p class="card-date">Jun 21, 2026 · Score 8.08 / 10</p>
+              <h3 class="card-title">House of Honey</h3>
+              <p class="card-maker">by Edoardo Lunardi (Austria)</p>
+              <p class="card-desc">공간을 이야기로 디자인하는 인테리어 스튜디오. 에디토리얼한 플루이드 디지털 존재감.</p>
+            </div>
+            <div class="card-body">
+              <div class="tags">
+                <span class="tag">Animated</span><span class="tag">Grid</span>
+                <span class="tag">Typographic</span><span class="tag">Agency</span>
+              </div>
+              <p class="analysis-label">디자인 분석</p>
+              <p class="analysis-text">잡지 에디토리얼에서 차용한 그리드 시스템이 인테리어 프로젝트 이미지를 시각적으로 정렬한다. UX 점수(8.21)가 UI(8.09)를 상회해 <strong>사용성 중심 에디토리얼 디자인</strong>의 균형이 높게 평가됨.</p>
+            </div>
+            <div class="card-footer">
+              <span class="score-badge score-css">★ 8.08 (Judge: 8.77)</span>
+              <a class="visit-link" href="https://www.houseofhoney.com/" target="_blank">사이트 방문 ↗</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-top">
+              <p class="card-date">Jun 20, 2026 · Score 8.14 / 10</p>
+              <h3 class="card-title">DigiPHY</h3>
+              <p class="card-maker">by Toms Krastins-Rullis (Latvia)</p>
+              <p class="card-desc">디지털-물리 융합 비전을 모션과 인터랙션으로 구현한 몰입형 프로덕트 스토리.</p>
+            </div>
+            <div class="card-body">
+              <div class="tags">
+                <span class="tag">Animated</span><span class="tag">Scroll</span>
+                <span class="tag">WebGL</span><span class="tag">Products</span>
+              </div>
+              <p class="analysis-label">디자인 분석</p>
+              <p class="analysis-text">스크롤 트리거 WebGL 씬 전환이 제품의 물리-디지털 컨셉을 시각 언어로 직접 번역한다. 혁신성 점수(8.19)가 가장 높아 <strong>WebGL 스크롤 내러티브가 제품 론칭 마이크로사이트의 새 표준</strong>으로 부상 중임을 보여줌.</p>
+            </div>
+            <div class="card-footer">
+              <span class="score-badge score-css">★ 8.14 (Judge: 8.87)</span>
+              <a class="visit-link" href="https://rdapkuns.github.io/around-digiphy/" target="_blank">사이트 방문 ↗</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- FWA -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-badge badge-fwa">FOTD</span>
+          <span class="section-name">FWA — Favourite Website Awards</span>
+          <span class="section-url"><a href="https://thefwa.com/" target="_blank">thefwa.com ↗</a></span>
+        </div>
+        <div class="cards">
+
+          <div class="card">
+            <div class="card-top">
+              <p class="card-date">Jun 23, 2026 · 82 Points</p>
+              <h3 class="card-title">NUDOT STUDIO</h3>
+              <p class="card-maker">by Nudot Studio (Taiwan)</p>
+              <p class="card-desc">프리미엄 웹 디자인과 AI 기반 비주얼을 전문으로 하는 디지털 스튜디오의 포트폴리오.</p>
+            </div>
+            <div class="card-body">
+              <div class="tags">
+                <span class="tag">AI-driven Visuals</span><span class="tag">Premium Web Design</span>
+                <span class="tag">Studio Portfolio</span>
+              </div>
+              <p class="analysis-label">디자인 분석</p>
+              <p class="analysis-text">AI 생성 비주얼과 핸드크래프티드 웹 디자인을 병행해 스튜디오의 기술 스택을 직접 증명한다. 포트폴리오 자체가 서비스 데모로 기능하는 <strong>자기 참조적(self-referential) 쇼케이스</strong> 방식. AI 비주얼 활용이 에이전시 자기표현 방식으로 빠르게 정착하는 추세를 반영한다.</p>
+            </div>
+            <div class="card-footer">
+              <span class="score-badge score-fwa">★ 82 pts · 5 days</span>
+              <a class="visit-link" href="http://nudot.com.tw" target="_blank">사이트 방문 ↗</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-top">
+              <p class="card-date">Jun 22, 2026 · 81 Points</p>
+              <h3 class="card-title">20 Years Inspired by People</h3>
+              <p class="card-maker">by /nk.studio® (10 FWAs)</p>
+              <p class="card-desc">20년간 /nk.studio에 영감을 준 사람들과 순간들의 아카이브. 스튜디오 창립 20주년 기념 사이트.</p>
+            </div>
+            <div class="card-body">
+              <div class="tags">
+                <span class="tag">Archival Design</span><span class="tag">Editorial</span>
+                <span class="tag">Anniversary</span><span class="tag">Storytelling</span>
+              </div>
+              <p class="analysis-label">디자인 분석</p>
+              <p class="analysis-text">"영감을 주기 전에 우리는 영감을 받았다"는 역설적 내러티브를 아카이브 UI로 풀어냈다. 기념일 사이트가 단순 홍보가 아닌 <strong>인터랙티브 아카이빙과 브랜드 스토리텔링의 결합</strong>으로 진화한 전형적 사례.</p>
+            </div>
+            <div class="card-footer">
+              <span class="score-badge score-fwa">★ 81 pts · 5 days</span>
+              <a class="visit-link" href="https://inspiring.nk.studio/" target="_blank">사이트 방문 ↗</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-top">
+              <p class="card-date">Jun 21, 2026 · 80 Points</p>
+              <h3 class="card-title">Blood Donation</h3>
+              <p class="card-maker">by Steve Meredith</p>
+              <p class="card-desc">헌혈 과정을 처음부터 끝까지 안내하는 인터랙티브 3D 가이드. 2026 National Blood Week 캠페인.</p>
+            </div>
+            <div class="card-body">
+              <div class="tags">
+                <span class="tag">Interactive 3D</span><span class="tag">Public Health</span>
+                <span class="tag">Educational</span><span class="tag">Campaign</span>
+              </div>
+              <p class="analysis-label">디자인 분석</p>
+              <p class="analysis-text">의료 정보라는 딱딱한 주제를 인터랙티브 3D 여정으로 재구성해 헌혈 불안감을 낮춘다. 사회적 캠페인에 첨단 웹 기술을 접목한 <strong>공공 커뮤니케이션 × 크리에이티브 테크</strong>의 우수 사례.</p>
+            </div>
+            <div class="card-footer">
+              <span class="score-badge score-fwa">★ 80 pts · 11 days</span>
+              <a class="visit-link" href="https://blood-donation.com/" target="_blank">사이트 방문 ↗</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 트렌드 요약 -->
+      <div class="trend-summary">
+        <h2>📊 오늘의 디자인 트렌드 요약</h2>
+        <div class="trend-grid">
+          <div class="trend-item">
+            <div class="trend-icon">🌊</div>
+            <div class="trend-title">WebGL 스크롤 내러티브</div>
+            <div class="trend-desc">스크롤에 반응하는 WebGL 씬 전환이 제품 스토리텔링의 핵심 기법으로 자리잡음.</div>
+          </div>
+          <div class="trend-item">
+            <div class="trend-icon">⚡</div>
+            <div class="trend-title">바이크로마틱 팔레트</div>
+            <div class="trend-desc">2색 고대비 컬러로 강렬한 브랜드 정체성을 구축하는 경향 뚜렷.</div>
+          </div>
+          <div class="trend-item">
+            <div class="trend-icon">🤖</div>
+            <div class="trend-title">AI 비주얼 통합</div>
+            <div class="trend-desc">AI 생성 비주얼을 직접 포트폴리오에 녹여 기술 역량을 증명하는 에이전시 증가.</div>
+          </div>
+          <div class="trend-item">
+            <div class="trend-icon">📖</div>
+            <div class="trend-title">에디토리얼 + 아카이브</div>
+            <div class="trend-desc">잡지 에디토리얼 감성의 아카이브형 UX가 강세.</div>
+          </div>
+          <div class="trend-item">
+            <div class="trend-icon">🎬</div>
+            <div class="trend-title">시네마틱 포트폴리오</div>
+            <div class="trend-desc">영상·사운드가 UI 레이어와 통합돼 방문자를 즉시 브랜드 세계관에 몰입시킴.</div>
+          </div>
+          <div class="trend-item">
+            <div class="trend-icon">🔬</div>
+            <div class="trend-title">공공 캠페인 × 크리에이티브 테크</div>
+            <div class="trend-desc">사회적 메시지를 첨단 인터랙티브 3D로 전달하는 디자인 부상.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-footer">
+        <span>웹에이전시 본부장 리포트 · 자동 생성</span>
+        <span>데이터 수집: 2026-06-23 · Awwwards · CSS Design Awards · FWA</span>
+      </div>
+
+    </div><!-- /report-2026-06-23 -->
+
+  </main><!-- /main -->
+
+</div><!-- /layout -->
+
+<script>
+  function showReport(dateId) {
+    document.querySelectorAll('.report-page').forEach(p => p.classList.remove('visible'));
+    document.querySelectorAll('.date-item').forEach(d => d.classList.remove('active'));
+
+    const page = document.getElementById('report-' + dateId);
+    if (page) {
+      page.classList.add('visible');
+      page.parentElement.scrollTop = 0;
+    }
+
+    const items = document.querySelectorAll('.date-item');
+    items.forEach(item => {
+      if (item.getAttribute('onclick') && item.getAttribute('onclick').includes(dateId)) {
+        item.classList.add('active');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
