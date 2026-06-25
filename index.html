@@ -419,12 +419,18 @@
     <nav class="sidebar-nav">
       <!-- ★ 날짜 항목은 여기에 자동으로 추가됩니다 ★ -->
       <!-- MONTH: 2026년 6월 -->
-      <div class="date-item active" onclick="showReport('2026-06-25')">
+      <div class="date-item" onclick="showReport('2026-06-25')">
+        <div>
+          <div class="date-label">6월 25일</div>
+          <div class="date-day">목요일</div>
+        </div>
+        <span class="new-badge">NEW</span>
+      </div>
+      <div class="date-item" onclick="showReport('2026-06-23')">
         <div>
           <div class="date-label">6월 23일</div>
           <div class="date-day">화요일</div>
         </div>
-
       </div>
       <div class="date-item" onclick="showReport('2026-06-22')">
         <div>
@@ -559,13 +565,6 @@
         </div>
       </div>
 
-      <div class="date-item" onclick="showReport('2026-06-25')">
-        <div>
-          <div class="date-label">6월 25일</div>
-          <div class="date-day">목요일</div>
-        </div>
-        <span class="new-badge">NEW</span>
-      </div>
       <!-- 새 날짜는 위에 계속 추가 -->
     </nav>
 
