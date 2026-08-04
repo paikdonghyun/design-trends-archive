@@ -4567,14 +4567,40 @@
 
     <nav class="sidebar-nav">
       <!-- ★ 날짜 항목은 여기에 자동으로 추가됩니다 ★ -->
-      <!-- MONTH: 2026년 7월 -->
-      <div class="month-label">2026년 7월</div>
+      <!-- MONTH: 2026년 8월 -->
+      <div class="month-label">2026년 8월</div>
+      <div class="date-item" onclick="showReport('2026-08-03')">
+        <div>
+          <div class="date-label">8월 3일</div>
+          <div class="date-day">월요일</div>
+        </div>
+        <span class="new-badge">NEW</span>
+      </div>
+
+      <!-- MONTH: 2026년 7월 (접기) -->
+      <div class="month-group collapsed" id="month-2026-07">
+        <div class="month-toggle" onclick="toggleMonth('month-2026-07')">
+          <span>2026년 7월 <small>(15개)</small></span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="month-items">
+      <div class="date-item" onclick="showReport('2026-07-31')">
+        <div>
+          <div class="date-label">7월 31일</div>
+          <div class="date-day">금요일</div>
+        </div>
+      </div>
+      <div class="date-item" onclick="showReport('2026-07-28')">
+        <div>
+          <div class="date-label">7월 28일</div>
+          <div class="date-day">월요일</div>
+        </div>
+      </div>
       <div class="date-item" onclick="showReport('2026-07-27')">
         <div>
           <div class="date-label">7월 27일</div>
-          <div class="date-day">월요일</div>
+          <div class="date-day">일요일</div>
         </div>
-          
       </div>
       <div class="date-item" onclick="showReport('2026-07-24')">
         <div>
@@ -4618,7 +4644,7 @@
           <div class="date-day">월요일</div>
         </div>
       </div>
-      <div class="date-item active" onclick="showReport('2026-07-08')">
+      <div class="date-item" onclick="showReport('2026-07-08')">
         <div>
           <div class="date-label">7월 8일</div>
           <div class="date-day">수요일</div>
@@ -4646,6 +4672,8 @@
         <div>
           <div class="date-label">7월 1일</div>
           <div class="date-day">수요일</div>
+        </div>
+      </div>
         </div>
       </div>
 
@@ -4821,35 +4849,7 @@
         </div>
       </div>
 
-      <div class="date-item" onclick="showReport('2026-07-28')">
-  <div>
-    <div class="date-label">7월 28일</div>
-    <div class="date-day">월요일</div>
-  </div>
-  </div>
-      <div class="date-item" onclick="showReport('2026-07-31')">
-  <div>
-    <div class="date-label">7월 31일</div>
-    <div class="date-day">금요일</div>
-  </div>
-</div>
-<!-- MONTH: 2026년 8월 -->
-      <div class="month-label">2026년 8월</div>
-      <div class="date-item" onclick="showReport('2026-08-03')">
-  <div>
-    <div class="date-label">8월 3일</div>
-    <div class="date-day">월요일</div>
-  </div>
-  
-</div>
-<div class="date-item" onclick="showReport('2026-08-03')">
-  <div>
-    <div class="date-label">8월 3일</div>
-    <div class="date-day">월요일</div>
-  </div>
-  <span class="new-badge">NEW</span>
-</div>
-<!-- 새 날짜는 위에 계속 추가 -->
+      <!-- 새 날짜는 위에 계속 추가 -->
     </nav>
 
     <div class="sidebar-footer">
