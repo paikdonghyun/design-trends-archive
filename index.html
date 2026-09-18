@@ -85,12 +85,15 @@
 
 <nav id="sidebar">
   <h1>🎨 Design Trends</h1>
-  <div class="sidebar-meta">총 2개 리포트</div>
+  <div class="sidebar-meta">총 3개 리포트</div>
   <div class="month-group">
     <div class="month-label">2026년 9월</div>
-    <div class="date-item active" onclick="showReport('2026-09-16')">
+          <div class="date-item active" onclick="showReport('2026-09-18')">
+        <span class="date-text">9월 18일 (금)</span>
+        <span class="badge-new">NEW</span>
+      </div>
+      <div class="date-item" onclick="showReport('2026-09-16')">
       <span class="date-text">9월 16일 (수)</span>
-      <span class="badge-new">NEW</span>
     </div>
     <div class="date-item" onclick="showReport('2026-09-15')">
       <span class="date-text">9월 15일 (화)</span>
@@ -101,8 +104,153 @@
 <main id="main">
 
 
+  <!-- 2026-09-18 Report -->
+  <div class="report-section active" id="report-2026-09-18">
+    <div class="report-header">
+      <h2>2026년 9월 18일 웹 디자인 트렌드</h2>
+      <div class="subtitle">Awwwards · CSS Design Awards · FWA · GDWEB 오늘의 수상작</div>
+    </div>
+
+    <!-- Awwwards -->
+    <div class="platform-section">
+      <div class="platform-title">
+        <span class="platform-dot dot-awwwards"></span>
+        Awwwards — Site of the Day
+      </div>
+      <div class="cards-grid">
+        <div class="site-card">
+          <div class="card-rank">#1 · Sep 18, 2026</div>
+          <div class="card-title">Noho</div>
+          <div class="card-meta">by Eugene Morev &amp; Alex Ivanov · 7.34/10</div>
+          <div class="card-tags">WebGL · GSAP · Webflow · 3D · Animation · Single page</div>
+          <div class="card-desc">Noho — a creative studio exploring the intersection of technology and design through WebGL-powered immersive single-page experiences.</div>
+          <a class="card-link" href="https://noho.ink/" target="_blank">noho.ink →</a>
+        </div>
+        <div class="site-card">
+          <div class="card-rank">#2 · Sep 17, 2026</div>
+          <div class="card-title">LxL Creative</div>
+          <div class="card-meta">by Jordan Gilroy · 7.37/10</div>
+          <div class="card-tags">Film &amp; TV · GSAP · BARBA.js · Webflow · Transitions</div>
+          <div class="card-desc">LxL Creative is a film and television production studio with a bold visual identity driven by vibrant orange tones and fluid page transitions.</div>
+          <a class="card-link" href="https://www.lxlcreative.co.uk/" target="_blank">lxlcreative.co.uk →</a>
+        </div>
+        <div class="site-card">
+          <div class="card-rank">#3 · Sep 16, 2026</div>
+          <div class="card-title">L.I.S.A.</div>
+          <div class="card-meta">by Locomotive &amp; 60fps · 7.48/10</div>
+          <div class="card-tags">WebGL · GSAP · Blender · 3D · Animation</div>
+          <div class="card-desc">L.I.S.A. (Locomotive Interactive Super Assistant) connects clients, collaborators, and talent through projects, careers, and guidance.</div>
+          <a class="card-link" href="https://lisa.locomotive.ca/en" target="_blank">lisa.locomotive.ca/en →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CSS Design Awards -->
+    <div class="platform-section">
+      <div class="platform-title">
+        <span class="platform-dot dot-cssda"></span>
+        CSS Design Awards — Website of the Day
+      </div>
+      <div class="cards-grid">
+        <div class="site-card">
+          <div class="card-rank">WOTD · Sep 17, 2026</div>
+          <div class="card-title">Gionatan Nese '26</div>
+          <div class="card-meta">by Gionatan Nese · UI 8.61</div>
+          <div class="card-tags">minimal · video/sound · WebGL</div>
+          <div class="card-desc">A sleek minimal portfolio by Gionatan Nese, featuring video-driven storytelling and WebGL-enhanced visual interactions.</div>
+          <a class="card-link" href="https://www.gionatannese.com/" target="_blank">gionatannese.com →</a>
+        </div>
+        <div class="site-card">
+          <div class="card-rank">WOTD · Sep 16, 2026</div>
+          <div class="card-title">Farm Minerals</div>
+          <div class="card-meta">8.35</div>
+          <div class="card-tags">animated · illustrated · scroll</div>
+          <div class="card-desc">Farm Minerals is an agriculture-focused brand site with rich illustrated animations and engaging scroll-driven storytelling.</div>
+          <a class="card-link" href="https://www.farmminerals.com/" target="_blank">farmminerals.com →</a>
+        </div>
+        <div class="site-card">
+          <div class="card-rank">WOTD · Sep 15, 2026</div>
+          <div class="card-title">Khanh Nguyen — Portfolio</div>
+          <div class="card-meta">8.15</div>
+          <div class="card-tags">animated · minimal · typographic</div>
+          <div class="card-desc">A typographically strong minimal portfolio by Khanh Nguyen showcasing design work with clean animated transitions.</div>
+          <a class="card-link" href="https://khanhnguyen.design/" target="_blank">khanhnguyen.design →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FWA -->
+    <div class="platform-section">
+      <div class="platform-title">
+        <span class="platform-dot dot-fwa"></span>
+        FWA — Favourite Website Award
+      </div>
+      <div class="cards-grid">
+        <div class="site-card">
+          <div class="card-rank">FOTD · Sep 18, 2026</div>
+          <div class="card-title">La Revoltosa</div>
+          <div class="card-meta">by WAKA</div>
+          <div class="card-tags">Three.js · GSAP · WebGL · Scrollytelling</div>
+          <div class="card-desc">An immersive WebGL scrollytelling experience for La Revoltosa, blending Three.js-powered 3D visuals with GSAP-driven narrative animation.</div>
+          <a class="card-link" href="https://thefwa.com/cases/la-revoltosa-p2" target="_blank">thefwa.com/cases/la-revoltosa-p2 →</a>
+        </div>
+        <div class="site-card">
+          <div class="card-rank">FOTD · Sep 17, 2026</div>
+          <div class="card-title">A24</div>
+          <div class="card-meta">by Ravi Klaassens</div>
+          <div class="card-tags">3D · Disc-based · Interactive · Film</div>
+          <div class="card-desc">A 3D disc-based interactive filmography experience for A24, allowing users to explore the acclaimed studio's full catalog in a visually striking spatial interface.</div>
+          <a class="card-link" href="https://thefwa.com/cases/a24" target="_blank">thefwa.com/cases/a24 →</a>
+        </div>
+        <div class="site-card">
+          <div class="card-rank">FOTD · Sep 16, 2026</div>
+          <div class="card-title">Hobro Digital</div>
+          <div class="card-meta">by Hobro Digital</div>
+          <div class="card-tags">Agency · Full-cycle · Digital</div>
+          <div class="card-desc">Hobro Digital is a full-cycle digital agency from Canada showcasing their end-to-end digital production capabilities.</div>
+          <a class="card-link" href="https://thefwa.com/cases/hobro-digital" target="_blank">thefwa.com/cases/hobro-digital →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- GDWEB -->
+    <div class="platform-section">
+      <div class="platform-title">
+        <span class="platform-dot dot-gdweb"></span>
+        GDWEB — 오늘의 수상작
+      </div>
+      <div class="cards-grid">
+        <div class="site-card">
+          <div class="card-rank">WINNER PRIZE · #27590</div>
+          <div class="card-title">아트파이</div>
+          <div class="card-meta">by 아트파이</div>
+          <div class="card-tags">엔터테인먼트 · 크리에이티브</div>
+          <div class="card-desc">아트파이 엔터테인먼트의 공식 웹사이트로 독창적인 레이아웃과 브랜드 정체성을 담은 크리에이티브 사이트.</div>
+          <a class="card-link" href="https://artpieent.com/" target="_blank">artpieent.com →</a>
+        </div>
+        <div class="site-card">
+          <div class="card-rank">WINNER PRIZE · #27591</div>
+          <div class="card-title">봄결성형외과</div>
+          <div class="card-meta">by 플랜에이제트</div>
+          <div class="card-tags">인물/사람 · 고급스러운 · 여성적인 · 독특한 레이아웃</div>
+          <div class="card-desc">봄결성형외과의 브랜드 사이트로 고급스럽고 여성적인 감성과 독특한 레이아웃이 돋보이는 의료 웹사이트.</div>
+          <a class="card-link" href="https://www.bomgyeol.co.kr/" target="_blank">bomgyeol.co.kr →</a>
+        </div>
+        <div class="site-card">
+          <div class="card-rank">WINNER PRIZE · #27589</div>
+          <div class="card-title">힐로웨이브</div>
+          <div class="card-meta">by 레이레이랩</div>
+          <div class="card-tags">3D · 모션그래픽 · 타이포</div>
+          <div class="card-desc">힐로웨이브 공식 웹사이트. 3D 모션그래픽과 타이포그래피를 활용한 역동적인 브랜드 경험을 제공하는 사이트.</div>
+          <a class="card-link" href="https://www.hilowave.co.kr/" target="_blank">hilowave.co.kr →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <!-- 2026-09-16 Report -->
-  <div class="report-section active" id="report-2026-09-16">
+  <div class="report-section" id="report-2026-09-16">
     <div class="report-header">
       <h2>2026년 9월 16일 웹 디자인 트렌드</h2>
       <div class="subtitle">Awwwards · CSS Design Awards · FWA · GDWEB 오늘의 수상작</div>
